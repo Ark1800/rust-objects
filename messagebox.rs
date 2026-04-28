@@ -3,6 +3,8 @@ Made by: Mathew Dusome
 May 16, 2025
 Adds a message box (dialog) component for displaying messages and options to users
 
+April 28, 2026: Ark1800 added the ability to dynamically change messages, titles, and center your message box locally and on the web
+
 In your mod.rs file located in the modules folder add the following to the end of the file
     pub mod messagebox;
     
@@ -252,10 +254,22 @@ impl MessageBox {
         }
     }
     
-    // Center the dialog in the screen
+    //ANDREWS FUNCTIONSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    #[allow(unused)]
+    pub fn set_title(&mut self, title: impl Into<String>) -> &mut Self {
+        self.title = title.into(); //.into converts &str to String
+        self
+    }
+    pub fn set_message(&mut self, message: impl Into<String>) -> &mut Self {
+        self.message = message.into(); //.into converts &str to String (converts value to whats needed, in this case &str to String)
+        self
+    }
+
     pub fn centered(&mut self) -> &mut Self {
-        self.x = (screen_width() - self.width) / 2.0;
-        self.y = (screen_height() - self.height) / 2.0;
+        const VIRTUAL_WIDTH: f32 = 1024.0;
+        const VIRTUAL_HEIGHT: f32 = 768.0;
+        self.x = (VIRTUAL_WIDTH - self.width) / 2.0;
+        self.y = (VIRTUAL_HEIGHT - self.height) / 2.0;
         self
     }
     
